@@ -24,3 +24,12 @@ st.markdown(
 )
 st.subheader(" ")
 st.subheader(" ")
+
+# Retrieve the selected_options dictionary from session state
+selected_options = st.session_state.selected_options
+
+# Retrieve the value of the data_processing variable
+data_processing_value = selected_options["data_processing"]
+
+# Display the value of the data_processing variable
+st.write("Value of data_processing:", data_processing_value)

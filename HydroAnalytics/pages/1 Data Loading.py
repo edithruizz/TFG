@@ -62,3 +62,25 @@ with col2:
 # st.write("Data Prediction:", data_prediction)
 # st.write("Analysis of Anomalies:", analysis_of_anomalies)
 # st.write("EDA on Clean and Enhanced Data:", eda_clean_enhanced_data)
+
+# Define a SessionState class
+class SessionState:
+    def __init__(self, **kwargs):
+        self.__dict__.update(kwargs)
+
+# Check if the 'selected_options' attribute exists in the session state
+if 'selected_options' not in st.session_state:
+    # If not, initialize it with empty values
+    st.session_state.selected_options = {}
+
+# Button to send the selected options
+if st.button("Send"):
+    # Store the state of the checkboxes
+    st.session_state.selected_options = {
+        "exploratory_data_analysis": exploratory_data_analysis,
+        "data_cleaning": data_cleaning,
+        "data_processing": data_processing,
+        "data_prediction": data_prediction,
+        "eda_clean_enhanced_data": eda_clean_enhanced_data,
+        "analysis_of_anomalies": analysis_of_anomalies
+    }

@@ -24,3 +24,12 @@ st.markdown(
 )
 st.subheader(" ")
 st.subheader(" ")
+
+# Retrieve the selected_options dictionary from session state
+selected_options = st.session_state.selected_options
+
+# Retrieve the value of the data_prediction variable
+data_prediction_value = selected_options["data_prediction"]
+
+# Display the value of the data_prediction variable
+st.write("Value of data_prediction:", data_prediction_value)

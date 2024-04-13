@@ -24,3 +24,12 @@ st.markdown(
 )
 st.subheader(" ")
 st.subheader(" ")
+
+# Retrieve the selected_options dictionary from session state
+selected_options = st.session_state.selected_options
+
+# Retrieve the value of the analysis_of_anomalies variable
+analysis_of_anomalies_value = selected_options["analysis_of_anomalies"]
+
+# Display the value of the analysis_of_anomalies variable
+st.write("Value of analysis_of_anomalies:", analysis_of_anomalies_value)

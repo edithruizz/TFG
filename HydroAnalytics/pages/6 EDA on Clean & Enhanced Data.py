@@ -24,3 +24,12 @@ st.markdown(
 )
 st.subheader(" ")
 st.subheader(" ")
+
+# Retrieve the selected_options dictionary from session state
+selected_options = st.session_state.selected_options
+
+# Retrieve the value of the eda_clean_enhanced_data variable
+eda_clean_enhanced_data_value = selected_options["eda_clean_enhanced_data"]
+
+# Display the value of the eda_clean_enhanced_data variable
+st.write("Value of eda_clean_enhanced_data:", eda_clean_enhanced_data_value)

@@ -24,3 +24,12 @@ st.markdown(
 )
 st.subheader(" ")
 st.subheader(" ")
+
+# Retrieve the selected_options dictionary from session state
+selected_options = st.session_state.selected_options
+
+# Retrieve the value of the data_cleaning variable
+data_cleaning_value = selected_options["data_cleaning"]
+
+# Display the value of the data_cleaning variable
+st.write("Value of data_cleaning:", data_cleaning_value)

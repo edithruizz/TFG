@@ -24,3 +24,12 @@ st.markdown(
 )
 st.subheader(" ")
 st.subheader(" ")
+
+# Retrieve the selected_options dictionary from session state
+selected_options = st.session_state.selected_options
+
+# Retrieve the value of the exploratory_data_analysis variable
+exploratory_data_analysis_value = selected_options["exploratory_data_analysis"]
+
+# Display the value of the exploratory_data_analysis variable
+st.write("Value of exploratory_data_analysis:", exploratory_data_analysis_value)
