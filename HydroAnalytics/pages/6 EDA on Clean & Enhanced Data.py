@@ -1,3 +1,10 @@
+"""
+TFG - Bachelor’s degree in Computer Engineering
+Author: Edith Ruiz Macià
+Year: 2024
+Project: Improving Water Management in Barcelona through Data Quality Enhancement and Predictive Analytics
+"""
+
 import streamlit as st
 
 st.set_page_config(
