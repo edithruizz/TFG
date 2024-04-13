@@ -7,6 +7,8 @@ page_icon="💧",
 layout="wide",
 initial_sidebar_state="expanded")
 
+st.sidebar.markdown('''<small>© Edith Ruiz Macià 2024</small>''', unsafe_allow_html=True)
+
 #The title
 st.markdown("""<h3 style='text-align: left; color: navy;'>Data Loading</h3>""",unsafe_allow_html=True)
 st.subheader(" ")

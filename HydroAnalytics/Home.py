@@ -8,6 +8,8 @@ initial_sidebar_state="expanded")
 
 # st.sidebar.header("Navigate through the different tabs to learn about all the features of this app")
 # st.sidebar.write(" 📢 In the welcome tab we will find a brief introduction to the use case: Vehicle Pricing. ")
+# st.sidebar.markdown('''<hr>''', unsafe_allow_html=True)
+st.sidebar.markdown('''<small>© Edith Ruiz Macià 2024</small>''', unsafe_allow_html=True)
 
 #Page background color
 st.markdown("""
@@ -64,6 +66,16 @@ st.write("Detect anomalies and irregularities within your water datasets with ea
 st.markdown("""<h4 style='text-align: left;'>Understand Model Decisions</h4>""", unsafe_allow_html=True)
 st.write(" ")
 st.write("Gain transparency into our prediction models with our explainability tab. Understand the underlying rationale behind each prediction, visualize feature importance, and interpret model decisions to enhance trust and confidence in the results.")
+
+# Load image 3
+image = open("data/data2.jpg", "rb").read()
+col1, col2, col3 = st.columns(3)
+with col1: st.write(' ')
+with col2: st.image(image, caption=' ', width=300, output_format='auto')
+with col3: st.write(' ')
+st.markdown(
+    "<style>div.Widget.row-widget.stImage>div{display: flex;justify-content: center;}</style>", 
+    unsafe_allow_html=True)
 
 st.markdown("""<h4 style='text-align: left;'>Join the HydroAnalytics Community</h4>""", unsafe_allow_html=True)
 st.write(" ")
