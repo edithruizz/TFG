@@ -6,6 +6,10 @@ Project: Improving Water Management in Barcelona through Data Quality Enhancemen
 """
 
 import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import matplotlib.dates as mdates
 
 st.set_page_config(
 page_title="HydroAnalytics",
@@ -13,9 +17,9 @@ page_icon="💧",
 layout="wide",
 initial_sidebar_state="expanded")
 
-st.sidebar.markdown('''<small>© Edith Ruiz Macià 2024</small>''', unsafe_allow_html=True)
+st.sidebar.markdown('''<small>© Edith Ruiz Macià - 2024</small>''', unsafe_allow_html=True)
 
-#The title
+# Title
 st.markdown(
     """
     <h3 style='text-align: left; color: navy;'>Data Cleaning</h3>
@@ -32,4 +36,5 @@ selected_options = st.session_state.selected_options
 data_cleaning_value = selected_options["data_cleaning"]
 
 # Display the value of the data_cleaning variable
-st.write("Value of data_cleaning:", data_cleaning_value)
+# st.write("Value of data_cleaning:", data_cleaning_value)
+

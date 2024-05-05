@@ -13,7 +13,7 @@ page_icon="💧",
 layout="wide",
 initial_sidebar_state="expanded")
 
-st.sidebar.markdown('''<small>© Edith Ruiz Macià 2024</small>''', unsafe_allow_html=True)
+st.sidebar.markdown('''<small>© Edith Ruiz Macià - 2024</small>''', unsafe_allow_html=True)
 
 #The title
 st.markdown(

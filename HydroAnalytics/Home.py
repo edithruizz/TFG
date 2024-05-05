@@ -13,12 +13,9 @@ page_icon="💧",
 layout="wide",
 initial_sidebar_state="expanded")
 
-# st.sidebar.header("Navigate through the different tabs to learn about all the features of this app")
-# st.sidebar.write(" 📢 In the welcome tab we will find a brief introduction to the use case: Vehicle Pricing. ")
-# st.sidebar.markdown('''<hr>''', unsafe_allow_html=True)
-st.sidebar.markdown('''<small>© Edith Ruiz Macià 2024</small>''', unsafe_allow_html=True)
+st.sidebar.markdown('''<small>© Edith Ruiz Macià - 2024</small>''', unsafe_allow_html=True)
 
-#Page background color
+# Page background color
 st.markdown("""
 <style>
 body {
@@ -28,12 +25,12 @@ body {
 </style>
     """, unsafe_allow_html=True)
 
-#The title
+# Title
 st.markdown("""<h1 style='text-align: center; color: navy;'>HydroAnalytics</h1>""", unsafe_allow_html=True)
 st.subheader(" ")
 st.subheader(" ")
 
-#Text
+# Text
 st.markdown("""<h4 style='text-align: left;'>Welcome to HydroAnalytics</h4>""", unsafe_allow_html=True)
 st.write(" ")
 st.write("HydroAnalytics is a cutting-edge platform revolutionizing water data analytics, serving as a premier destination for understanding and predicting water consumption patterns. As leaders in the field, we're thrilled to introduce our latest innovation: a comprehensive suite of tools designed to empower users in making informed decisions regarding water usage and conservation.")
