@@ -50,6 +50,7 @@ try:
     else:
         # Retrieve the uploaded_file dictionary from session state
         df = st.session_state.uploaded_file
+        original = st.session_state.uploaded_file
 
         st.write("In this section of the application we will clean the data by normalizing it and removing erroneus values and outliers.")
 
@@ -68,7 +69,7 @@ try:
         info_str = string_buffer.getvalue()
         st.markdown(f"```\n{info_str}\n```")
 
-        st.write("Let's simplify the naming of the dataset so from this point onwars we have cleaner plots and outputs.")
+        st.write("Let's simplify the naming of the dataset so from this point onwards we have cleaner plots and outputs.")
 
         new_column_names = {
             'Secció Censal/Sección censal/Census section': 'Census section',
@@ -134,7 +135,6 @@ try:
         # Null values count
         columns_dataset1 = df.columns
         for column in columns_dataset1:
-            # print("Column:", column, "- Null values: ", df[column].isnull().sum())
             st.write("Column:", column, "- Null values: ", df[column].isnull().sum())
         
         st.markdown(
@@ -150,9 +150,7 @@ try:
 
         # We identify negative values in consumption
         num_negative_consum_rows = len(df[df['Normalized Accumulated Consumption (L/day)'] < 0])
-        #print("Negative in 'Normalized Accumulated Consumption (L/day)' in the dataset:", num_negative_consum_rows)
 
-        # st.info("Negative values in 'Normalized Accumulated Consumption (L/day)': " + str(num_negative_consum_rows))
         str = "Negative values in 'Normalized Accumulated Consumption (L/day)': " + str(num_negative_consum_rows)
         st.markdown(f"```\n{str}\n```")
 
@@ -163,12 +161,11 @@ try:
         df_1 = df.copy()
         df_1.loc[df_1['Normalized Accumulated Consumption (L/day)'] < 0, 'Normalized Accumulated Consumption (L/day)'] = np.nan
 
+        # Let's put null also the values of the Accumulated Consumption (L/day)
+        df_1.loc[df_1['Accumulated Consumption (L/day)'] < 0, 'Accumulated Consumption (L/day)'] = np.nan   
+
         # Number of negative values in Normalized Accumulated Consumption (L/day) after removing negative values
         num_negative_consum_rows2 = len(df_1[df_1['Normalized Accumulated Consumption (L/day)'] < 0])
-        #print("Negative in 'Normalized Accumulated Consumption (L/day)' in the dataset:", num_negative_consum_rows2)
-
-        # Number of null values in Normalized Accumulated Consumption (L/day) after removing negative values
-        #print("Number of Nulls in the dataset without negative values:", df_1['Normalized Accumulated Consumption (L/day)'].isnull().sum())
 
         st.markdown(
             """
@@ -215,8 +212,10 @@ try:
 
         dataset1_filtered = pd.concat([domestic_df, industrial_df, comercial_df], ignore_index=True)
 
+        # Let's put to null also the values that correspond to those outliers in 'Accumulated Consumption (L/day)'
+        dataset1_filtered.loc[dataset1_filtered['Normalized Accumulated Consumption (L/day)'].isnull(), 'Accumulated Consumption (L/day)'] = np.nan
+
         # Save anomalies for future analysis
-        # anomalies.head()
         clean_data = dataset1_filtered.copy()
 
         st.session_state.clean = clean_data
@@ -224,6 +223,7 @@ try:
 
         # Passing cleaned dataset
         st.session_state.cleaned_file = dataset1_filtered
+        st.session_state.uploaded_file = original
 
         # Distribution of the target over time
         plt.figure(figsize=(10, 5))

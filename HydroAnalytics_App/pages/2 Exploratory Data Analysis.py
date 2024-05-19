@@ -77,7 +77,6 @@ try:
             unsafe_allow_html=True
         )
 
-
         # Distribution of the target over time
         plt.figure(figsize=(10, 5))
         plt.scatter(df["Data/Fecha/Date"], df["Consum acumulat (L/dia)/Consumo acumulado(L/día)/Accumulated Consumption (L/day)"], color='blue',  marker='o', s=20, alpha=0.7, label='Data Points')

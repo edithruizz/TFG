@@ -42,7 +42,10 @@ try:
         unsafe_allow_html=True
         )
     else:
-        st.subheader(" ")
+        df = st.session_state.predicted_file
+        original = st.session_state.uploaded_file
+
+        
 
 except KeyError:
     st.markdown(

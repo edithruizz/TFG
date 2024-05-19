@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib.dates as mdates
 import numpy as np
+from io import StringIO
 
 st.set_page_config(
 page_title="HydroAnalytics",
@@ -35,6 +36,7 @@ try:
 
     # Retrieve the value of the data_enhancement variable
     data_enhancement_value = selected_options["data_enhancement"]
+    data_preprocessing_value = selected_options["data_preprocessing"]
 
     # Display the value of the data_enhancement variable
     # st.write("Value of data_enhancement:", data_enhancement_value)
@@ -47,11 +49,51 @@ try:
         unsafe_allow_html=True
         )
     else:
-        # Retrieve the cleaned_file dictionary from session state
-        df = st.session_state.cleaned_file
+        st.write("In this section of the application we will enhance our data by adding relevant information from the data we already have and from additional geotemporal datasets that can affect water consumption.")
 
-        st.write("In this section of the application we will enhance our data by adding relevant information from the data we already have and from additional datasets of geotemporal data that can affect water consumption.")
+        if data_preprocessing_value == True:
+            # Retrieve the cleaned_file dictionary from session state
+            df = st.session_state.cleaned_file
+            original = st.session_state.uploaded_file
+        else:
+            # Retrieve the uploaded_file dictionary from session state
+            df = st.session_state.uploaded_file
+            original = st.session_state.uploaded_file
 
+            st.markdown(
+            """
+            <h5 style='text-align: left; color: navy;'>Rename columns</h5>
+            """,
+            unsafe_allow_html=True
+            )
+            
+            # Initial information of the dataset
+            string_buffer = StringIO()
+            df.info(buf=string_buffer)
+            info_str = string_buffer.getvalue()
+            st.markdown(f"```\n{info_str}\n```")
+
+            st.write("Let's simplify the naming of the dataset so from this point onwards we have cleaner plots and outputs.")
+
+            new_column_names = {
+            'Secció Censal/Sección censal/Census section': 'Census section',
+            'Districte/Distrito/District': 'District',
+            'Codi postal/Código postal/Postcode': 'Postcode',
+            'Municipi/Municipio/Municipality': 'Municipality',
+            'Data/Fecha/Date': 'Date',
+            'Ús/Uso/Use': 'Use',
+            'Nombre de comptadors/Número de contadores/Number of meters': 'Number of meters',
+            'Consum acumulat (L/dia)/Consumo acumulado(L/día)/Accumulated Consumption (L/day)': 'Accumulated Consumption (L/day)'
+            }
+
+            df.rename(columns=new_column_names, inplace=True)
+
+            # Renamed information of the dataset
+            string_buffer = StringIO()
+            df.info(buf=string_buffer)
+            info_str = string_buffer.getvalue()
+            st.markdown(f"```\n{info_str}\n```")
+        
         st.markdown(
             """
             <h5 style='text-align: left; color: navy;'>Additional information</h5>
@@ -63,7 +105,6 @@ try:
 
         # Convert "Date" column to datetime
         df['Date'] = pd.to_datetime(df['Date'])
-        # df.info()
 
         # We create a new "Season" column based on the "Date" column
         def map_to_season(month):
@@ -90,6 +131,18 @@ try:
         st.write("This is how the dataset looks after adding new information:")
         st.write(df.head(3))
 
+        # Distribution of consumption by seasons
+        season_consumption = df.groupby('Season')['Normalized Accumulated Consumption (L/day)'].sum()
+        plt.figure(figsize=(10, 5))
+        season_consumption.plot(kind='bar', color=['skyblue', 'dodgerblue', 'royalblue', 'navy'])
+        plt.xlabel('Season', fontsize=10)
+        plt.ylabel('Accumulated Consumption (L/day)', fontsize=10)
+        plt.xticks(fontsize=8)
+        plt.yticks(fontsize=8)
+        plt.title('Accumulated Consumption by Season', fontsize=12)
+        st.pyplot(plt)
+
+
         st.write("Data is from the following years:")
         str = 'Year/s: ' + str(df['Year'].unique())
         st.markdown(f"```\n{str}\n```")
@@ -110,7 +163,6 @@ try:
         dataset_rain = dataset_rain[dataset_rain['Any'].isin(years_to_keep)]
 
         # Display the first few rows of the filtered dataset
-        #dataset_rain.head()
         st.write(dataset_rain.head(3))
 
         def map_to_precipitation(dataset_filtered, dataset_rain):
@@ -127,20 +179,16 @@ try:
         df.rename(columns = {'Precipitacions': 'Precipitations'}, inplace=True)
         st.write(df.head(3))
 
-        # plt.figure(figsize=(10, 5))
-        # # plt.scatter(df["Date"], df["Normalized Accumulated Consumption (L/day)"], color='lightskyblue',  marker='o', s=20, alpha=0.7, label='Normalized Accumulated Consumption')
-        # #plt.scatter(df["Date"], df["Precipitations"], color='blue',  marker='o', s=20, alpha=0.7, label='Precipitations')
-        # plt.plot(df["Date"], df["Precipitations"], color='red', label='Precipitations')
-        # plt.title("Distribution of Accumulated Consumption vs Normalized Accumulated Consumption over Time", fontsize=12)
-        # plt.xlabel("Date", fontsize=10)
-        # plt.ylabel("Accumulated Consumption (L/day)", fontsize=10)
-        # plt.xticks(rotation=45, ha='right', fontsize=8)
-        # plt.yticks(fontsize=8)
-        # plt.grid(True)
-        # plt.legend(fontsize=7)
-        # tick_frequency = 100
-        # plt.gca().xaxis.set_major_locator(mdates.DayLocator(interval=tick_frequency))
-        # st.pyplot(plt)
+        # Precipitation Over Time
+        df_sorted = df.sort_values(by='Date')
+        plt.figure(figsize=(10, 5))
+        plt.plot(df_sorted['Date'], df_sorted['Precipitations'], color='blue', linewidth=2)
+        plt.xlabel('Date', fontsize=10)
+        plt.ylabel('Precipitations (mm)', fontsize=10)
+        plt.title('Precipitations Over Time', fontsize=12)
+        plt.xticks(fontsize=8)
+        plt.yticks(fontsize=8)
+        st.pyplot(plt)
 
         st.markdown(
             """
@@ -174,8 +222,20 @@ try:
         df.rename(columns = {'Temperatura': 'Temperature'}, inplace=True)
         st.write(df.head(3))
 
+        # Temperature Over Time
+        df_sorted = df.sort_values(by='Date')
+        plt.figure(figsize=(10, 5))
+        plt.plot(df_sorted['Date'], df_sorted['Temperature'], color='blue', linewidth=2)
+        plt.xlabel('Date', fontsize=10)
+        plt.ylabel('Temperature (ºC)', fontsize=10)
+        plt.title('Temperature Over Time', fontsize=12)
+        plt.xticks(fontsize=8)
+        plt.yticks(fontsize=8)
+        st.pyplot(plt)
+
         # Passing enhanced dataset
         st.session_state.enhanced_file = df
+        st.session_state.uploaded_file = original
 
         st.markdown(
             """
@@ -191,7 +251,7 @@ try:
         st.download_button(
             label="Download CSV",
             data=csv,
-            file_name='dataset_preprocessed.csv',
+            file_name='dataset_enhanced.csv',
             mime='text/csv'
         )
 
