@@ -23,13 +23,31 @@ st.markdown(
     unsafe_allow_html=True
 )
 st.subheader(" ")
-st.subheader(" ")
 
-# Retrieve the selected_options dictionary from session state
-selected_options = st.session_state.selected_options
+try:
+    # Retrieve the selected_options dictionary from session state
+    selected_options = st.session_state.selected_options
 
-# Retrieve the value of the eda_clean_enhanced_data variable
-eda_clean_enhanced_data_value = selected_options["eda_clean_enhanced_data"]
+    # Retrieve the value of the eda_clean_enhanced_data variable
+    eda_clean_enhanced_data_value = selected_options["eda_clean_enhanced_data"]
 
-# Display the value of the eda_clean_enhanced_data variable
-st.write("Value of eda_clean_enhanced_data:", eda_clean_enhanced_data_value)
+    # Display the value of the eda_clean_enhanced_data variable
+    # st.write("Value of eda_clean_enhanced_data:", eda_clean_enhanced_data_value)
+
+    if eda_clean_enhanced_data_value == False :
+        st.markdown(
+        """
+        <p style='text-align: center; color: red;'>You haven't checked this option, go back to Data Loading and check it for EDA on Clean & Enhanced Data.</p>
+        """,
+        unsafe_allow_html=True
+        )
+    else:
+        st.subheader(" ")
+
+except KeyError:
+    st.markdown(
+    """
+    <p style='text-align: center; color: red;'>Go to the Data Loading section in order to upload your dataset first.</p>
+    """,
+    unsafe_allow_html=True
+    )
