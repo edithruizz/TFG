@@ -18,7 +18,7 @@ st.sidebar.markdown('''<small>© Edith Ruiz Macià - 2024</small>''', unsafe_all
 #The title
 st.markdown(
     """
-    <h3 style='text-align: left; color: navy;'>EDA on Clean & Enhanced Data</h3>
+    <h3 style='text-align: left; color: navy;'>EDA on Clean Data</h3>
     """,
     unsafe_allow_html=True
 )
