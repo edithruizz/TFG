@@ -1,5 +1,5 @@
 """
-TFG - Bachelor’s degree in Computer Engineering
+TFG - Bachelor's degree in Computer Engineering
 Author: Edith Ruiz Macià
 Year: 2024
 Project: Improving Water Management in Barcelona through Data Quality Enhancement and Predictive Analytics
@@ -63,28 +63,39 @@ try:
             <h5 style='text-align: left; color: navy;'>Correlation Matrix</h5>
             """,
             unsafe_allow_html=True
-            )
+        )
 
-        # Convert "Date" column to object for label encoding
-        df['Date'] = df['Date'].astype(object) 
+        df['Date'] = df['Date'].astype(object)
 
         # Label Encoder
-        # Initialize LabelEncoder
-        label_encoder = LabelEncoder()
+        le_municipality = LabelEncoder()
+        df['Municipality'] = le_municipality.fit_transform(df['Municipality'])
 
-        # Apply LabelEncoder to each column containing categorical data
-        for column in df.columns:
-            if df[column].dtype == 'object':
-                df[column] = label_encoder.fit_transform(df[column])  
+        le_date = LabelEncoder()
+        df['Date'] = le_date.fit_transform(df['Date'])
 
-        # We remove the null values in to see the correct correlation of the data
+        le_use = LabelEncoder()
+        df['Use'] = le_use.fit_transform(df['Use'])
+
+        le_season = LabelEncoder()
+        df['Season'] = le_season.fit_transform(df['Season'])
+
+        le_dayofweek = LabelEncoder()
+        df['Day of Week'] = le_dayofweek.fit_transform(df['Day of Week'])
+
+        # We remove the null values to see the correct correlation of the data
         df = df.dropna(subset = ['District'])
         df = df.dropna(subset = ['Census section'])
+        df = df.dropna(subset = ['Temperature'])
+        df = df.dropna(subset = ['Relative Humidity'])
+        df = df.dropna(subset = ['Atmospheric Pressure'])
+        df = df.dropna(subset = ['Precipitation'])
+        df = df.dropna(subset = ['Solar Radiation global'])
 
-        # Correlation matrix
+        # Correlation Matrix
         df_not_null = df[~df['Accumulated Consumption (L/day)'].isnull()]
         corr = df_not_null.corr()
-        plt.figure(figsize=(15,6))
+        plt.figure(figsize=(19,6))
         heatmap = sns.heatmap(corr, vmin=-1, vmax=1, annot=True, cmap='coolwarm')
         heatmap.set_title('Correlation Heatmap', fontdict={'fontsize': 15})
         st.pyplot(plt)
@@ -94,7 +105,7 @@ try:
             <h5 style='text-align: left; color: navy;'>Model Training</h5>
             """,
             unsafe_allow_html=True
-            )
+        )
         
         st.write('We are making a prediction with Accumulated Consumption (L/day) instead of the normalized data because it was the original one and shows more promising results. At the end we just have to divide by the Number of Meters.')
 
@@ -102,46 +113,32 @@ try:
         string_buffer = StringIO()
         df.info(buf=string_buffer)
         info_str = string_buffer.getvalue()
-        st.markdown(f"```\n{'Independent variables: Use, Number of meters, Date, Postcode, Census section'}\n```")
+        st.markdown(f"```\n{'Independent variables: Census section, Postcode, Date, Use, Number of meters, Day of Week, Month, Year, Atmospheric Pressure'}\n```")
 
         string_buffer = StringIO()
         df.info(buf=string_buffer)
         info_str = string_buffer.getvalue()
         st.markdown(f"```\n{'Dependent variable: Accumulated Consumption (L/day)'}\n```")
 
+        # Model Training
+
         # We remove the null values in the consumption column to train the model
-        df2 = df.dropna(subset=['Accumulated Consumption (L/day)'])
+        dataset1_filtered2 = df.dropna(subset=['Accumulated Consumption (L/day)'])
 
         # Independent variables 
-        features = ['Use', 'Number of meters', 'Date', 'Postcode', 'Census section']
-        X = df2[features]
+        features = ['Census section','Postcode','Date','Use','Number of meters','Day of Week','Month', 'Year','Atmospheric Pressure']
+
+        X = dataset1_filtered2[features]
 
         # Target variable (dependent variable)
-        y = df2['Accumulated Consumption (L/day)']
+        y = dataset1_filtered2['Accumulated Consumption (L/day)']
 
         # 80% training and 20% testing
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-        # We make sure that X and Y have the same length for both train and test
-        # st.write('We make sure that X and Y have the same length for both train and test')
-        # st.write("Lenght X_train:", len(X_train))
-        # st.write("Length y_train:", len(y_train))
-        # st.write("Lenght X_test:", len(X_test))
-        # st.write("Length y_test:", len(y_test))
-
-        # K-Nearest Neighbors
-        knn_model = KNeighborsRegressor()
-        knn_model.fit(X_train, y_train)
-        y_pred_knn = knn_model.predict(X_test)
-
-        # Evaluate the model
-        mse_knn = mean_squared_error(y_test, y_pred_knn)
-        mae_knn = mean_absolute_error(y_test, y_pred_knn)
-        r2_knn = r2_score(y_test, y_pred_knn)
-
         code = '''
         # K-Nearest Neighbors
-        knn_model = KNeighborsRegressor()
+        knn_model = KNeighborsRegressor(n_neighbors=3)
         knn_model.fit(X_train, y_train)
         y_pred_knn = knn_model.predict(X_test)
 
@@ -152,6 +149,16 @@ try:
         '''
         st.code(code, language='python')
 
+        # K-Nearest Neighbors
+        knn_model = KNeighborsRegressor(n_neighbors=3)
+        knn_model.fit(X_train, y_train)
+        y_pred_knn = knn_model.predict(X_test)
+
+        # Evaluate the model
+        mse_knn = mean_squared_error(y_test, y_pred_knn)
+        mae_knn = mean_absolute_error(y_test, y_pred_knn)
+        r2_knn = r2_score(y_test, y_pred_knn)
+
         st.write(f"K-Nearest Neighbors Mean Squared Error (MSE):", round(np.sqrt(mse_knn), 4))
         st.write(f"K-Nearest Neighbors Mean Absolute Error (MAE):", round(mae_knn, 4))
         st.write(f"K-Nearest Neighbors R-squared (R2):", round(r2_knn, 4))
@@ -161,7 +168,7 @@ try:
         # Identify the rows that have a NUll values in 'Accumulated Consumption (L/day)'
         missing_rows = df[df['Accumulated Consumption (L/day)'].isnull()]
 
-        features2 = ['Use', 'Number of meters', 'Date', 'Postcode', 'Census section']
+        features2 = ['Census section','Postcode','Date','Use','Number of meters','Day of Week','Month', 'Year','Atmospheric Pressure']
         X_ = missing_rows[features2]
 
         # Predict the values with the model
