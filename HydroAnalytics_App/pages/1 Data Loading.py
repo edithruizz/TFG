@@ -80,9 +80,8 @@ with col1:
 # Checkboxes for remaining three options in the second column
 with col2:
     data_prediction = st.checkbox("Data Prediction", key='data_prediction', on_change=update_checkboxes)
-    eda_clean_enhanced_data = st.checkbox("EDA on Clean and Enhanced Data", key='eda_clean_enhanced_data', on_change=update_checkboxes)
+    eda_clean_enhanced_data = st.checkbox("EDA on Clean Data", key='eda_clean_enhanced_data', on_change=update_checkboxes)
     analysis_of_anomalies = st.checkbox("Analysis of Anomalies", key='analysis_of_anomalies', on_change=update_checkboxes)
-
 
 # Display the selected options
 # st.write("Selected Options:")

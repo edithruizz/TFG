@@ -37,9 +37,9 @@ st.write("HydroAnalytics is a cutting-edge platform revolutionizing water data a
 
 # Load image 1
 image = open("data/water1.jpg", "rb").read()
-col1, col2, col3 = st.columns(3)
+col1, col2, col3, col4, col5 = st.columns(5)
 with col1: st.write(' ')
-with col2: st.image(image, caption=' ', width=300, output_format='auto')
+with col2: st.image(image, caption=' ', width=500, output_format='auto')
 with col3: st.write(' ')
 st.markdown(
     "<style>div.Widget.row-widget.stImage>div{display: flex;justify-content: center;}</style>", 
@@ -55,9 +55,9 @@ st.write("Harness the power of advanced data processing techniques to enhance th
 
 # Load image 2
 image = open("data/data1.jpg", "rb").read()
-col1, col2, col3 = st.columns(3)
+col1, col2, col3, col4, col5 = st.columns(5)
 with col1: st.write(' ')
-with col2: st.image(image, caption=' ', width=300, output_format='auto')
+with col2: st.image(image, caption=' ', width=500, output_format='auto')
 with col3: st.write(' ')
 st.markdown(
     "<style>div.Widget.row-widget.stImage>div{display: flex;justify-content: center;}</style>", 
@@ -73,9 +73,9 @@ st.write("Gain transparency into our prediction models with our explainability t
 
 # Load image 3
 image = open("data/data2.jpg", "rb").read()
-col1, col2, col3 = st.columns(3)
+col1, col2, col3, col4, col5 = st.columns(5)
 with col1: st.write(' ')
-with col2: st.image(image, caption=' ', width=300, output_format='auto')
+with col2: st.image(image, caption=' ', width=500, output_format='auto')
 with col3: st.write(' ')
 st.markdown(
     "<style>div.Widget.row-widget.stImage>div{display: flex;justify-content: center;}</style>", 

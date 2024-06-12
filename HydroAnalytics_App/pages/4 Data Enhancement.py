@@ -8,9 +8,6 @@ Project: Improving Water Management in Barcelona through Data Quality Enhancemen
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
-import matplotlib.dates as mdates
-import numpy as np
 from io import StringIO
 
 st.set_page_config(
@@ -131,20 +128,22 @@ try:
         st.write("This is how the dataset looks after adding new information:")
         st.write(df.head(3))
 
-        # Distribution of consumption by seasons
-        season_consumption = df.groupby('Season')['Normalized Accumulated Consumption (L/day)'].sum()
-        plt.figure(figsize=(10, 5))
-        season_consumption.plot(kind='bar', color=['tan', 'palegreen', 'gold', 'skyblue'])
-        plt.xlabel('Season', fontsize=10)
-        plt.ylabel('Accumulated Consumption (L/day)', fontsize=10)
-        plt.xticks(fontsize=8)
-        plt.yticks(fontsize=8)
-        plt.title('Accumulated Consumption by Season', fontsize=12)
-        st.pyplot(plt)
+        if data_preprocessing_value == True :
+            # Distribution of consumption by seasons
+            season_consumption = df.groupby('Season')['Normalized Accumulated Consumption (L/day)'].sum()
+            plt.figure(figsize=(15, 7))
+            season_consumption.plot(kind='bar', color=['tomato', 'lightgreen', 'gold', 'skyblue'])
+            plt.xlabel('Season', fontsize=10)
+            plt.ylabel('Accumulated Consumption (L/day)', fontsize=10)
+            plt.xticks(fontsize=8)
+            plt.yticks(fontsize=8)
+            plt.title('Accumulated Consumption by Season', fontsize=12)
+            st.pyplot(plt)
 
         st.write("Data is from the following years:")
         str = 'Year/s: ' + str(df['Year'].unique())
         st.markdown(f"```\n{str}\n```")
+        st.write(" ")
 
         st.markdown(
             """

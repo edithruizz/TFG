@@ -6,10 +6,8 @@ Project: Improving Water Management in Barcelona through Data Quality Enhancemen
 """
 
 import streamlit as st
-import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import matplotlib.dates as mdates
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.neighbors import KNeighborsRegressor
@@ -193,21 +191,6 @@ try:
 
         # Number of negatives values in Normalized Accumulated Consumption (L/day)
         st.write("Number of Negatives in 'Normalized Accumulated Consumption (L/day)':", len(df[df['Normalized Accumulated Consumption (L/day)'] < 0]))
-
-        # Plot Original vs Predicted Data        
-        # plt.figure(figsize=(10, 5))
-        # plt.scatter(original["Data/Fecha/Date"], original["Consum acumulat (L/dia)/Consumo acumulado(L/día)/Accumulated Consumption (L/day)"], color='blue',  marker='o', s=20, alpha=0.7, label='Original Accumulated Consumption')
-        # plt.scatter(df["Date"], df["Normalized Accumulated Consumption (L/day)"], color='lightskyblue',  marker='o', s=20, alpha=0.7, label='Predicted Normalized Accumulated Consumption')
-        # plt.title("Distribution of Accumulated Consumption vs Normalized Accumulated Consumption over Time", fontsize=12)
-        # plt.xlabel("Date", fontsize=10)
-        # plt.ylabel("Normalized Accumulated Consumption (L/day)", fontsize=10)
-        # plt.xticks(rotation=45, ha='right', fontsize=8)
-        # plt.yticks(fontsize=8)
-        # plt.grid(True)
-        # plt.legend(fontsize=7)
-        # tick_frequency = 100
-        # plt.gca().xaxis.set_major_locator(mdates.DayLocator(interval=tick_frequency))
-        # st.pyplot(plt)
 
         # Passing predicted dataset
         st.session_state.predicted_file = df
