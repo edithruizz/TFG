@@ -51,7 +51,7 @@ st.write("Load your water-related datasets and uncover hidden trends, patterns, 
 
 st.markdown("""<h4 style='text-align: left;'>Enhance and Predict</h4>""", unsafe_allow_html=True)
 st.write(" ")
-st.write("Harness the power of advanced data processing techniques to enhance the quality and relevance of your analysis. Our state-of-the-art prediction models leverage historical data to forecast future water consumption with remarkable accuracy. Explore various prediction scenarios and gain a deeper understanding of potential consumption trends.")
+st.write("Harness the power of advanced data processing techniques to enhance the quality and relevance of your analysis. Our prediction models leverage historical data to forecast missing water consumption with remarkable accuracy. Explore various prediction scenarios and gain a deeper understanding of potential consumption trends.")
 
 # Load image 2
 image = open("data/data1.jpg", "rb").read()
@@ -68,8 +68,8 @@ st.write(" ")
 st.write("Detect anomalies and irregularities within your water datasets with ease. Our anomaly analysis tools help identify outliers and unusual patterns, enabling proactive intervention and mitigation strategies to ensure optimal water management.")
 
 st.markdown("""<h4 style='text-align: left;'>Understand Model Decisions</h4>""", unsafe_allow_html=True)
-st.write(" ")
-st.write("Gain transparency into our prediction models with our explainability tab. Understand the underlying rationale behind each prediction, visualize feature importance, and interpret model decisions to enhance trust and confidence in the results.")
+# st.write(" ")
+# st.write("Gain transparency into our prediction models with our explainability tab. Understand the underlying rationale behind each prediction, visualize feature importance, and interpret model decisions to enhance trust and confidence in the results.")
 
 # Load image 3
 image = open("data/data2.jpg", "rb").read()

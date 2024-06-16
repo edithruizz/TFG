@@ -68,7 +68,7 @@ try:
         sizes = [outliers_percentage, negative_percentage]
         colors = ['cornflowerblue', 'lightskyblue']
 
-        # Plotting the pie chart
+        # Pie chart
         plt.figure(figsize=(10, 6))
         plt.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', startangle=140)
         plt.title('Percentage of Outliers and Negative Consumption', fontsize=12)
@@ -135,12 +135,13 @@ try:
         
         st.write('Now we can visualize the new classification in total and per type of Use.')
 
-        # Count occurrences of each classification
+        # Count entries of each classification
         classification_counts = anomalies['Classification'].value_counts()
         labels = classification_counts.index
         sizes = classification_counts.values
         colors = ['lightskyblue', 'blue', 'cornflowerblue']
-        # Plotting the pie chart
+
+        # Pie chart
         plt.figure(figsize=(10, 6))
         plt.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', startangle=140)
         plt.title('Total Percentage of Each Anomaly Classification', fontsize=12)
@@ -153,16 +154,16 @@ try:
         # Select a Use
         selected_use = st.selectbox("Select the type of Use to visualize its Consumption", anomalies['Use'].unique())
 
-        # Filter the DataFrame
+        # Filtered dataset
         domestic_anomalies = anomalies[anomalies['Use'] == selected_use]
 
-        # Count occurrences of each classification
+        # Count entries of each classification
         classification_counts = domestic_anomalies['Classification'].value_counts()
         labels = classification_counts.index
         sizes = classification_counts.values
         colors = ['lightskyblue', 'blue', 'cornflowerblue'] 
 
-        # Plotting the pie chart
+        # Pie chart
         plt.figure(figsize=(10, 6))
         plt.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', startangle=140)
         plt.title(f'Percentage of Each Anomaly Classification for {selected_use} Use', fontsize=12)
