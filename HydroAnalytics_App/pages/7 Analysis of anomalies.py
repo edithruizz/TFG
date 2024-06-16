@@ -47,7 +47,7 @@ try:
         clean_data = st.session_state.clean
         
         st.write('We are now going to state a classification criteria in order to classify said anomalies into 3 categories: leak or waste, system error or correct but misclassified.')
-        st.write("This classification is based on the average of the correct real data, I'm not using the predicted one by the models but it might not be very accurate. This should be done with specific data portraying leaks, waste and system errors")
+        st.write("This classification is based on the average of the correct real data, I'm not using the predicted one by the models but it might not be very accurate. This should be done with specific data portraying leaks, waste and system errors.")
 
         st.markdown(
             """

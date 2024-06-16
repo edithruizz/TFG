@@ -54,7 +54,7 @@ try:
         original = st.session_state.uploaded_file
 
         st.write('In order to do the projection of incorrect values (negative and outliers) that right now happen to be null values in the dataset, several prediction models have been tested and the most promising one has been shown to be K-Nearest Neighbors.')
-        st.write("We will now encode the variables that aren't numerical in order to work with them and plot a correlation matrix to see which features explain best our target variable, Accumulated Consumption (L/day). ")
+        st.write("We will now encode the variables that aren't numerical in order to work with them and plot a correlation matrix to see which features explain best our target variable, Accumulated Consumption (L/day).")
         
         st.markdown(
             """
@@ -105,7 +105,7 @@ try:
             unsafe_allow_html=True
         )
         
-        st.write('We are making a prediction with Accumulated Consumption (L/day) instead of the normalized data because it was the original one and shows more promising results. At the end we just have to divide by the Number of Meters.')
+        st.write('We are making a prediction with Accumulated Consumption (L/day) instead of the normalized data because it was the original one and shows more promising results. At the end, we just have to divide by the Number of Meters.')
 
         # Model Training
         string_buffer = StringIO()
@@ -161,7 +161,7 @@ try:
         st.write(f"K-Nearest Neighbors Mean Absolute Error (MAE):", round(mae_knn, 4))
         st.write(f"K-Nearest Neighbors R-squared (R2):", round(r2_knn, 4))
 
-        st.write('It is considered a good model if the R-squared value is higher than 0.9. Therefore now we will replace the missing values with the predictions of this model. We have already trained model so now we replace all null values.')
+        st.write('It is considered a good model if the R-squared value is higher than 0.9. Therefore, now we will replace the missing values with the predictions of this model. We have already trained model so now we replace all null values.')
 
         # Identify the rows that have a NUll values in 'Accumulated Consumption (L/day)'
         missing_rows = df[df['Accumulated Consumption (L/day)'].isnull()]

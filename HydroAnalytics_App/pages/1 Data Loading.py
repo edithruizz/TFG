@@ -106,7 +106,7 @@ if st.button("Send"):
 
     st.markdown(
     """
-    <p style='text-align: center; color: blue;'>You can now navigate thorugh the side menu to see the different sections you have selected and visualize your results.</p>
+    <p style='text-align: center; color: blue;'>You can now navigate through the side menu to see the different sections you have selected and visualize your results.</p>
     """,
     unsafe_allow_html=True
     )

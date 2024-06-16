@@ -51,7 +51,7 @@ try:
         df = st.session_state.uploaded_file
         original = st.session_state.uploaded_file
 
-        st.write("In this section of the application we will clean the data by normalizing it and removing erroneus values and outliers.")
+        st.write("In this section of the application we will clean the data by normalizing it and removing erroneous values and outliers.")
 
         st.markdown(
             """
@@ -129,7 +129,7 @@ try:
             unsafe_allow_html=True
         )
 
-        st.write('It is important to learn about null values in our data as they can couse misimformation and problems when plotting or cumputing with our data.')
+        st.write('It is important to learn about null values in our data, as they can cause misinformation and problems when plotting or computing with our data.')
 
         # Null values count
         columns_dataset1 = df.columns

@@ -49,7 +49,7 @@ try:
         df = st.session_state.uploaded_file
 
         # EDA
-        st.write("In this section of the application we will look at the insights of the uploaded data by means of interactive plots and tables so we can learn more about the inital state of the data provided.")
+        st.write("In this section of the application we will look at the insights of the uploaded data by means of interactive plots and tables so we can learn more about the initial state of the data provided.")
 
         # Basic info
         st.markdown(

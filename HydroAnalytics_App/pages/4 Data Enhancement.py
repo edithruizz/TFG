@@ -46,7 +46,7 @@ try:
         unsafe_allow_html=True
         )
     else:
-        st.write("In this section of the application we will enhance our data by adding relevant information from the data we already have and from additional geotemporal datasets that can affect water consumption.")
+        st.write("In this section of the application we will enhance our data by adding relevant information from the data we already have and from additional meteorological datasets that can affect water consumption.")
 
         if data_preprocessing_value == True:
             # Retrieve the cleaned_file dictionary from session state
@@ -98,7 +98,7 @@ try:
             unsafe_allow_html=True
         )
 
-        st.write("Adding new columns from the ones that we already have can help see data in different prespectives and give us more informative plots.")
+        st.write("Adding new columns from the ones that we already have can help see data in different perspectives and give us more informative plots.")
 
         # Convert "Date" column to datetime
         df['Date'] = pd.to_datetime(df['Date'])
@@ -203,7 +203,7 @@ try:
         st.write('Solar Radiation available station info:', " ".join(solar_rad['CODI_ESTACIO'].unique()))
 
         # Mapping of Municipalities and CP to stations
-        st.write("The mapping is done by proximity of the data location to its closest weather station. When it comes to the municipalities of Gavà, Viladecans, Sant Adrià, l'Hospitalet de Llobregat the mmaping is direct as follows:")
+        st.write("The mapping is done by proximity of the data location to its closest weather station. When it comes to the municipalities of Gavà, Viladecans, Sant Adrià, l'Hospitalet de Llobregat the mapping is direct as follows:")
 
         municipality_to_station_temp_relh_prec_sol = { "GAVA": "UG", "VILADECANS": "UG", "SANT ADRIA": "WU", "L'HOSPITALET LLOBR.": "XL", "SANT FELIU LL.": "X8" }
         municipality_to_station_atmp = { "GAVA": "D5", "VILADECANS": "D5", "SANT ADRIA": "WU", "L'HOSPITALET LLOBR.": "XL", "SANT FELIU LL.": "X8" }

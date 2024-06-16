@@ -48,7 +48,7 @@ try:
         )
     else:
 
-        st.write("In this section of the application we can visualize the final clean data. The analysis is divided in 3 sections: Seasonal, Weekly and Geografical.")
+        st.write("In this section of the application, we can visualize the final clean data. The analysis is divided in 3 sections: Seasonal, Weekly and Geographical.")
         
         if data_prediction_value == True:
             # Retrieve the predicted_file dictionary from session state
@@ -261,7 +261,7 @@ try:
 
         st.markdown(
             """
-            <h5 style='text-align: left; color: navy;'>Geographycal Analysis</h5>
+            <h5 style='text-align: left; color: navy;'>Geographical Analysis</h5>
             """,
             unsafe_allow_html=True
         )
